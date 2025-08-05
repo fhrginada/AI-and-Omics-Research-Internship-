@@ -1,87 +1,42 @@
-#task 1 
-  
->dir.create("raw_data")
-> dir.create("clean_data")
-> dir.create("scripts")
-> dir.create("Tasks")
-> dir.create("plots")
-> 
-  > data <- read.csv("C:\\Users\\MG\\Downloads\\patient_info.csv")
-  > View(data)
-  > patient_info <-read.csv("C:\\Users\\MG\\Downloads\\patient_info.csv")
-  > View(patient_info)
-  > str(patient_info)
-  'data.frame':	20 obs. of  6 variables:
-    $ patient_id: chr  "P001" "P002" "P003" "P004" ...
-  $ age       : int  34 28 45 39 50 30 41 36 55 29 ...
-  $ gender    : chr  "Male" "Female" "Female" "Male" ...
-  $ diagnosis : chr  "Cancer" "Normal" "Cancer" "Normal" ...
-  $ bmi       : num  22.5 20.3 26.7 23.8 27.1 21.9 25.4 24.2 28.6 19.8 ...
-  $ smoker    : chr  "Yes" "No" "Yes" "No" ...
-  > summary(patient_info)
-  patient_id             age           gender           diagnosis              bmi           smoker         
-  Length:20          Min.   :26.00   Length:20          Length:20          Min.   :19.80   Length:20         
-  Class :character   1st Qu.:32.50   Class :character   Class :character   1st Qu.:22.40   Class :character  
-  Mode  :character   Median :38.50   Mode  :character   Mode  :character   Median :24.25   Mode  :character  
-  Mean   :38.95                                         Mean   :24.32                     
-  3rd Qu.:45.25                                         3rd Qu.:26.25                     
-  Max.   :55.00                                         Max.   :28.60                     
-  > patient_info$gender <- as.factor(patient_info$gender)
-  > patient_info$diagnosis <- as.factor(patient_info$diagnosis)
-  > str(patient_info)
-  'data.frame':	20 obs. of  6 variables:
-    $ patient_id: chr  "P001" "P002" "P003" "P004" ...
-  $ age       : int  34 28 45 39 50 30 41 36 55 29 ...
-  $ gender    : Factor w/ 2 levels "Female","Male": 2 1 1 2 1 2 1 1 2 1 ...
-  $ diagnosis : Factor w/ 2 levels "Cancer","Normal": 1 2 1 2 1 2 1 2 1 2 ...
-  $ bmi       : num  22.5 20.3 26.7 23.8 27.1 21.9 25.4 24.2 28.6 19.8 ...
-  $ smoker    : chr  "Yes" "No" "Yes" "No" ...
-  > patient_info$smoker <-factor(patient_info$smoker ,levels = c(0,1) , labels = c("Yes" ,"No"))
-  > str(patient_info)
-  'data.frame':	20 obs. of  6 variables:
-    $ patient_id: chr  "P001" "P002" "P003" "P004" ...
-  $ age       : int  34 28 45 39 50 30 41 36 55 29 ...
-  $ gender    : Factor w/ 2 levels "Female","Male": 2 1 1 2 1 2 1 1 2 1 ...
-  $ diagnosis : Factor w/ 2 levels "Cancer","Normal": 1 2 1 2 1 2 1 2 1 2 ...
-  $ bmi       : num  22.5 20.3 26.7 23.8 27.1 21.9 25.4 24.2 28.6 19.8 ...
-  $ smoker    : Factor w/ 2 levels "Yes","No": NA NA NA NA NA NA NA NA NA NA ...
-  > 
-    > patient_info$smoker <- factor(patient_info$smoker, levels = c("No", "Yes"))
-  > str(data)
-  'data.frame':	20 obs. of  6 variables:
-    $ patient_id: chr  "P001" "P002" "P003" "P004" ...
-  $ age       : int  34 28 45 39 50 30 41 36 55 29 ...
-  $ gender    : chr  "Male" "Female" "Female" "Male" ...
-  $ diagnosis : chr  "Cancer" "Normal" "Cancer" "Normal" ...
-  $ bmi       : num  22.5 20.3 26.7 23.8 27.1 21.9 25.4 24.2 28.6 19.8 ...
-  $ smoker    : chr  "Yes" "No" "Yes" "No" ...
-  > View(data)
-  > data$smoker_binary <- ifelse(data$smoker == "Yes", 1, 0)
-  > data$smoker_binary <- factor(data$smoker_binary, levels = c(0, 1), labels = c("No", "Yes"))
-  > 
-    > data$smoker_binary <- factor(data$smoker_binary,
-                                   +                           levels = c("No", "Yes"),
-                                   +                           labels = c(0, 1)) 
-  > 
-    > str(data)
-  'data.frame':	20 obs. of  7 variables:
-    $ patient_id   : chr  "P001" "P002" "P003" "P004" ...
-  $ age          : int  34 28 45 39 50 30 41 36 55 29 ...
-  $ gender       : chr  "Male" "Female" "Female" "Male" ...
-  $ diagnosis    : chr  "Cancer" "Normal" "Cancer" "Normal" ...
-  $ bmi          : num  22.5 20.3 26.7 23.8 27.1 21.9 25.4 24.2 28.6 19.8 ...
-  $ smoker       : chr  "Yes" "No" "Yes" "No" ...
-  $ smoker_binary: Factor w/ 2 levels "0","1": 2 1 2 1 2 1 2 1 2 1 ...
-  > data$gender <- as.factor(data$gender)
-  > data$diagnosis <- as.factor(data$diagnosis)
-  > str(data)
-  'data.frame':	20 obs. of  7 variables:
-    $ patient_id   : chr  "P001" "P002" "P003" "P004" ...
-  $ age          : int  34 28 45 39 50 30 41 36 55 29 ...
-  $ gender       : Factor w/ 2 levels "Female","Male": 2 1 1 2 1 2 1 1 2 1 ...
-  $ diagnosis    : Factor w/ 2 levels "Cancer","Normal": 1 2 1 2 1 2 1 2 1 2 ...
-  $ bmi          : num  22.5 20.3 26.7 23.8 27.1 21.9 25.4 24.2 28.6 19.8 ...
-  $ smoker       : chr  "Yes" "No" "Yes" "No" ...
-  $ smoker_binary: Factor w/ 2 levels "0","1": 2 1 2 1 2 1 2 1 2 1 ...
-  > write.csv(data, file = "Tasks/patient_data.csv")
-  
+#TASK_B1
+
+# Inside the project directory, create the following subfolders using R code:
+# raw_data, clean_data, scripts, results or Tasks, plots etc
+dir.create("raw_data")
+dir.create("clean_data")
+dir.create("scripts")
+dir.create("Tasks")
+dir.create("plots")
+
+# load the dataset into your R environment
+patient_info <- read.csv("C:\\Users\\MG\\Downloads\\patient_info.csv")
+
+# Inspect the structure of the dataset using appropriate R functions
+View(patient_info)
+str(patient_info)
+summary(patient_info)
+
+# Identify variables with incorrect or inconsistent data types.
+
+#gender and diagnosis must be factors
+patient_info$gender <- as.factor(patient_info$gender)
+patient_info$diagnosis <-as.factor(patient_info$diagnosis)
+
+View(patient_info)
+str(patient_info)
+
+# Create a new variable for smoking status as a binary factor:
+# 1 for "Yes", 0 for "No"
+patient_info$smoker <- factor(patient_info$smoker,
+                          levels = c("No", "Yes"),
+                          labels = c(0, 1)) 
+str(patient_info)
+
+# Save the cleaned dataset in your clean_data folder with the name patient_info_clean.csv
+write.csv(patient_info,file = "clean_data/patient_data_clean.csv")
+
+
+
+
+
+
